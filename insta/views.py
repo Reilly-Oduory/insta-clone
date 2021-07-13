@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .forms import RegistrationForm, ProfileForm, UpdateProfileForm, NewPostForm, UpdateCaptionForm, CommentForm
-from .models import Comment, Post, Profile
+from .models import Comment, Post, Profile, User
 
 # Create your views here.
 def register_user(request):
@@ -170,3 +170,14 @@ def new_comment(request, post_id):
     context = {"form":form}
 
     return render(request, 'comments/new_comment.html', context)
+
+@login_required(login_url='/login/')
+def search(request):
+    if 'search' in request.GET and request.GET["search"]:
+        search_term = request.GET.get("search")
+        search_results = User.objects.filter(username__icontains=search_term).all()
+        message = f"{search_term}"
+        return render(request, 'search.html', {"message": message, "search_results":search_results})
+    else: 
+        message = "You haven't searched for anything yet"
+        return render(request, "search.html", {"message": message})
