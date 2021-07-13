@@ -13,3 +13,8 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['fullname', 'profile_pic', 'bio']
+
+class UpdateProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio']

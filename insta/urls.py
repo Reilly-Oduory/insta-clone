@@ -9,5 +9,7 @@ urlpatterns = [
 
     # user urls
     path('', views.home, name='home'),
-    path('add_profile/', views.create_profile, name='create_profile')
+    path('add_profile/', views.create_profile, name='create_profile'),
+    path('update_profile/', views.update_profile, name='update_profile'),
+    path('profile/', views.view_profile, name='profile')
 ]

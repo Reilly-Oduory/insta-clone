@@ -1,0 +1,14 @@
+<h1>Profile Page {{user.username}}</h1>
+
+<p>{{ profile.fullname }}</p>
+<p>{{ profile.bio }}</p>
+
+<a href="{% url 'update_profile' %}">Update Profile</a>
+
+{% if messages %}
+
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+  
+{% endif %}
