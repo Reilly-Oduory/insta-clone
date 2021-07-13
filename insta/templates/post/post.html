@@ -3,3 +3,14 @@
 <h6>{{ post.caption }}</h6>
 <p>{{post.likes}} likes</p>
 <a href="{% url 'post_like' post_id=post.id %}">like</a>
+
+{% for comment in comments %}
+    <li>{{ comment.comment }}</li>
+    {% empty %}
+    <p>No comments yet</p>
+{% endfor %}
+<a href="{% url 'comment' post_id=post.id %}">Comment</a>
+
+{% for message in messages  %}
+    <p>{{message}}</p>
+{% endfor %}

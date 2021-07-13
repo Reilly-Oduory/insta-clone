@@ -2,10 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import Http404
 
-from .forms import RegistrationForm, ProfileForm, UpdateProfileForm, NewPostForm, UpdateCaptionForm
-from .models import Post, Profile
+from .forms import RegistrationForm, ProfileForm, UpdateProfileForm, NewPostForm, UpdateCaptionForm, CommentForm
+from .models import Comment, Post, Profile
 
 # Create your views here.
 def register_user(request):
@@ -120,7 +119,8 @@ def new_post(request):
 @login_required(login_url='/login/')
 def view_post(request, post_id):
     post = Post.objects.filter(id=post_id).first()
-    context = {"post":post}
+    comments = Comment.objects.filter(post=post).all()
+    context = {"post":post, "comments":comments}
     return render(request, 'post/post.html', context)
 
 @login_required(login_url='/login/')
@@ -147,8 +147,26 @@ def update_post_caption(request, post_id):
         
     else:
         messages.error(request, "Cannot edit caption")
+        return redirect(f'/post/{post_id}/')
 
     context = {"form":form}
     return render(request, 'post/update_caption.html', context)
 
 # Comments
+@login_required(login_url='/login/')
+def new_comment(request, post_id):
+    post = Post.objects.filter(id=post_id).first()
+    form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.post = post
+            obj.user = request.user
+            obj.save()
+            messages.success(request, "Comment sent")
+            return redirect(f'/post/{post_id}/')        
+
+    context = {"form":form}
+
+    return render(request, 'comments/new_comment.html', context)
