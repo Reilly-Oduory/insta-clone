@@ -9,7 +9,15 @@ urlpatterns = [
 
     # user urls
     path('', views.home, name='home'),
+
+    # profile urls
     path('add_profile/', views.create_profile, name='create_profile'),
     path('update_profile/', views.update_profile, name='update_profile'),
-    path('profile/', views.view_profile, name='profile')
+    path('profile/', views.view_profile, name='profile'),
+
+    # post urls
+    path('new_post/', views.new_post, name='new_post'),
+    path('post/<post_id>/', views.view_post, name='post'),
+    path('post/<post_id>/like/', views.like, name='post_like'),
+    path('post/<post_id>/update/', views.update_post_caption, name='post_caption_update'),
 ]

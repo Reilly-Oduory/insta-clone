@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import Http404
 
-from .forms import RegistrationForm, ProfileForm, UpdateProfileForm
-from .models import Profile
+from .forms import RegistrationForm, ProfileForm, UpdateProfileForm, NewPostForm, UpdateCaptionForm
+from .models import Post, Profile
 
 # Create your views here.
 def register_user(request):
@@ -86,7 +86,8 @@ def update_profile(request):
 def view_profile(request):
     user = request.user
     profile = Profile.objects.filter(user=user).first()
-    context = {"profile":profile}
+    posts = Post.objects.filter(user=user).all()
+    context = {"profile":profile, "posts":posts}
     return render(request, 'profile/view_profile.html', context)
 
 
@@ -96,3 +97,58 @@ def home(request):
     user = request.user
     context = {"user":user}
     return render(request, 'home.html', context)
+
+# Posts
+@login_required(login_url='/login/')
+def new_post(request):
+    form = NewPostForm()
+    if request.method == 'POST':
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.likes = 0
+            obj.save()
+            messages.success(request, "Post Successfully created.")
+            return redirect(f'/post/{obj.id}/')
+        else:
+            messages.error(request, "Post procedure failed")
+
+    context = {"form":form}
+    return render(request, 'post/new_post.html', context)
+
+@login_required(login_url='/login/')
+def view_post(request, post_id):
+    post = Post.objects.filter(id=post_id).first()
+    context = {"post":post}
+    return render(request, 'post/post.html', context)
+
+@login_required(login_url='/login/')
+def like(request, post_id):
+    post = Post.objects.filter(id=post_id).first()
+    post.post_like()
+    context = {"post":post}
+    return redirect(f'/post/{post_id}/')
+
+@login_required(login_url='/login/')
+def update_post_caption(request, post_id):
+    post = Post.objects.filter(id=post_id).first()
+    if request.user == post.user:
+        form = UpdateCaptionForm()
+        if request.method == 'POST':
+            form = UpdateCaptionForm(request.POST)
+            if form.is_valid():
+                new_caption = form.cleaned_data.get('caption')
+                post.update_caption(new_caption)
+                messages.success(request, "Caption successfully changed")
+                return redirect(f'/profile/')
+            else:
+                messages.error(request, "Caption update failed")
+        
+    else:
+        messages.error(request, "Cannot edit caption")
+
+    context = {"form":form}
+    return render(request, 'post/update_caption.html', context)
+
+# Comments

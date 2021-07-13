@@ -5,6 +5,22 @@
 
 <a href="{% url 'update_profile' %}">Update Profile</a>
 
+{% for post in posts %}
+
+    <div>
+        <h1>Post {{ post.id }}</h1>
+        <img src="{{post.image.url}}" width="250">
+        <h6>{{ post.caption }}</h6>
+        <p>{{post.likes}} likes</p>
+        <a href="{% url 'post_like' post_id=post.id %}">like</a>
+        <a href="{% url 'post_caption_update' post_id=post.id %}">Update post</a>
+    </div>
+
+{% empty %}
+    <p>No posts</p>
+  
+{% endfor %}
+
 {% if messages %}
 
     {% for message in messages %}

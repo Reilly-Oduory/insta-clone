@@ -24,6 +24,9 @@ class Profile(models.Model):
 class Tag(models.Model):
     tag = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.tag
+
     def save_tag(self):
         self.save()
 
@@ -56,6 +59,10 @@ class Post(models.Model):
     def update_caption(self, new_caption):
         previous = self.caption
         self.caption = new_caption
+        self.save()
+    
+    def post_like(self):
+        self.likes = self.likes+1
         self.save()
 
 class Comment(models.Model):

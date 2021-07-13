@@ -1,0 +1,10 @@
+<h1>Updatepost</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="update">
+</form>
+
+{% for message in messages  %}
+    <p>{{message}}</p>
+{% endfor %}
