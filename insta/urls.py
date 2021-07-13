@@ -9,4 +9,5 @@ urlpatterns = [
 
     # user urls
     path('', views.home, name='home'),
+    path('add_profile/', views.create_profile, name='create_profile')
 ]
