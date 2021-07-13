@@ -11,7 +11,10 @@ def register_user(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            login(request)
+            new_user = authenticate(username=form.cleaned_data['username'],
+                                    password=form.cleaned_data['password1'],
+                                    )
+            login(request, new_user)
             messages.success(request, "You have successfully Signed Up")
             return redirect(f'/')
         
