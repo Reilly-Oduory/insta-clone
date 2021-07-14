@@ -1,9 +1,54 @@
-<h1>Create Profile {{ username }}</h1>
+{% extends 'auth/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="text-center">
+            <h3>Create Profile</h3>
+        </div>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="card px-4 py-4 auth-form">
+                        <div class="row">
+                            <div class="text-center">
+                                <h5 class="identification">Welcome {{ username | upper }}</h5>
+                            </div>
+                        </div>
+                        <form method="POST" class="reg-form">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <p class="text-danger">{{form.fullname.errors}}</p>
+                                {{ form.fullname }}
+                            </div>
+                            <div class="form-group mb-3">
+                                <p class="text-danger">{{form.profile_pic.errors}}</p>
+                                <label>Profile Picture</label>
+                                {{ form.profile_pic }}
+                            </div>
+                            <div class="form-group mb-3">
+                                <p class="text-danger">{{form.bio.errors}}</p>
+                                {{ form.bio }}
+                            </div>
+                            <div class="text-center">
+                                <input type="submit" value="Create Profile" class="btn btn-primary mb-3">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+<h1>Create {{ username }}</h1>
 
 <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Submit">
+    
 </form>
 {% if messages %}
 

@@ -19,6 +19,10 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ['fullname', 'profile_pic', 'bio']
 
+    fullname = forms.CharField(widget=(forms.TextInput(attrs={'class': "form-control", 'placeholder': "Enter your Fullname"})))
+    profile_pic = forms.ImageField.widget.attrs={'class': "form-control"}
+    bio =forms.CharField(widget=(forms.Textarea(attrs={'class': "form-control", 'placeholder': "Tell us more about your self", 'cols': "25"})))
+
 class UpdateProfileForm(ModelForm):
     class Meta:
         model = Profile
