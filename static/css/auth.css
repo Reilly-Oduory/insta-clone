@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body {
+    background: #eeeee4;
+}
+
+.identification {
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+    font-family: 'Pacifico', cursive;
+}
+
+.spacer {
+    margin-top: 5vh;
+}
+
+.auth-form {
+    background: #fdfdfd;
+}
+
+.reg-form input:focus {
+    border: solid;
+    border-width: 2px;
+    outline: none;
+    border-color: #d6d6d6;
+    box-shadow: none;
+}
+
+input[type="text"] {
+    background: #eeeee4;
+}
+
+input[type="email"] {
+    background: #eeeee4;
+}
+
+input[type="password"] {
+    background: #eeeee4;
+}
+
+.alt {
+    width:auto;
+    background: #fdfdfd;
+    padding: 3vh 0;
+    border: solid;
+    border-color: #d6d6d6;
+    border-width: 1px;
+}

@@ -1,25 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Login</h1>
+{% extends 'auth/base.html' %} 
 
-    <div>
-        <form action="" method="post">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <input type="submit" value="Login">
-        </form>
-        {% for message in messages  %}
-            <p>{{message}}</p>
-        {% endfor %}
-        <a href="{% url 'register' %}">Click here if youdon't have an accounts</a>
+{% block content %}
+
+    <div class="row spacer">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="container mt-4">
+                <div class="card px-4 py-4 auth-form">
+                    <div class="row">
+                        <div class="text-center">
+                            <h1 class="identification">Insta Clone</h1>
+                        </div>
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="username" placeholder="Username" class="form-control mb-3 ">
+                        <input type="password" name="password" placeholder="Password" class="form-control mb-3">
+                        <div class="text-center">
+                            <input type="submit" value="Login" class="btn btn-primary mb-3">
+                        </div>
+                    </form>
+                </div>
+                <div class="text-center mt-4 alt">
+                    <p>Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
     </div>
-</body>
-</html>
+
+{% endblock %}
