@@ -11,6 +11,8 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     # search users
+    path('search/', views.search, name='search_results'),
+    path('user/<username>', views.searched_user, name='user'),
 
     # profile urls
     path('add_profile/', views.create_profile, name='create_profile'),

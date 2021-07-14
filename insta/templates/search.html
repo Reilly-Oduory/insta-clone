@@ -1,0 +1,7 @@
+<h1>search results</h1>
+<h2>Found {{ search_results | length }} users</h2>
+
+{% for result in search_results %}
+    <h4><a href="{% url 'user' username=result.username %}">{{ result.username }}</a></h4>
+    <hr>
+{% endfor %}

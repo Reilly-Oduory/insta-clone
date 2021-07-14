@@ -171,6 +171,7 @@ def new_comment(request, post_id):
 
     return render(request, 'comments/new_comment.html', context)
 
+# search
 @login_required(login_url='/login/')
 def search(request):
     if 'search' in request.GET and request.GET["search"]:
@@ -181,3 +182,11 @@ def search(request):
     else: 
         message = "You haven't searched for anything yet"
         return render(request, "search.html", {"message": message})
+
+@login_required(login_url='/login/')
+def searched_user(request, username):
+    user = User.objects.filter(username=username).first()
+    posts = Post.objects.filter(user=user).all()
+    context = {"posts":posts, "user":user}
+
+    return render(request, 'individual_user.html', context)

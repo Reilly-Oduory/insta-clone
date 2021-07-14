@@ -1,0 +1,12 @@
+<h1>{{ user.username }}</h1>
+<h5>{{ user.email }}</h5>
+
+{% for post in posts %}
+    <h1>Post {{ post.id }}</h1>
+    <img src="{{post.image.url}}" width="250">
+    <h6>{{ post.caption }}</h6>
+    <p>{{post.likes}} likes</p>
+    <a href="{% url 'post_like' post_id=post.id %}">like</a>
+    {% empty %}
+    <p>User has zero posts</p>
+{% endfor %}
