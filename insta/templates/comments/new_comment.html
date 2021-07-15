@@ -1,3 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3 class="identification pt-4">Update post's caption</h3>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 px-4 py-4">
+            <div class="container">
+                <form method="POST">
+                    {% csrf_token %}
+                        <div class="form-group">
+                            <p class="text-danger">{{form.comment.errors}}</p>
+                            {{ form.comment }}
+                        </div>
+                        <div class="text-center mt-4">
+                        <input type="submit" value="Comment" class="btn btn-outline-primary ">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}
+
 <h1>Comment</h1>
 
 <form action="" method="post">

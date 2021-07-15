@@ -1,3 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <img class="post-image" src="{{post.image.url}}">
+            </div>
+            <div class="border col-md-4 py-4 px-4">
+                <p class="text-muted">
+                    {{ post.caption }}
+                </p>
+                <small class="post-like">{{post.likes}} Likes</small>
+                <div style="clear: right;"></div>
+                <div class="text-center">
+                    {% if post.tags %}
+                        {% for tag in post.tags.all %}
+                            <span class="badge bg-dark mb-4">{{ tag }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="text-center">
+                    <a href="{% url 'post_like' post_id=post.id %}" class="btn btn-primary">Like Photo</a>
+                </div>
+                <p class="mt-4">By: {{ post.user.username }}</p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <hr>
+        <div class="row">
+            <h1 class="my-2">Comments</h1>
+            <a href="{% url 'comment' post_id=post.id %}" class="btn btn-outline-primary">Add Comment</a>
+            {% if comments %}
+                <div class="card fell my-4">
+                    <ul class="list-group list-group-flash">
+                        {% for comment in comments %}
+                            <li class="list-group-item">{{ comment.comment }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
 <h1>Post {{ post.id }}</h1>
 <img src="{{post.image.url}}" width="250">
 <h6>{{ post.caption }}</h6>

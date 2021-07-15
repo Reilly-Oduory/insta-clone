@@ -1,5 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center">
+        <h2>Found {{ search_results | length }} users</h2>
+    </div>
+    <div class="container">
+        {% for result in search_results %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4>User <a href="{% url 'user' username=result.username %}">{{ result.username }}</a></h4>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
 <h1>search results</h1>
-<h2>Found {{ search_results | length }} users</h2>
+
 
 {% for result in search_results %}
     <h4><a href="{% url 'user' username=result.username %}">{{ result.username }}</a></h4>

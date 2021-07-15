@@ -59,3 +59,5 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['comment']
+
+    comment = forms.CharField(widget=(forms.TextInput(attrs={'class': "form-control", 'placeholder': "Enter Comment"})))

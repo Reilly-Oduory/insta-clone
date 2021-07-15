@@ -1,3 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-6">
+                {% if profile.profile_pic %}
+                    <img src="{{ profile.profile_pic.url }}" class="profile-pic">
+                {% else %}
+                    <div class="text-center">
+                        <div class="circle"></div>
+                    </div>
+                    <p>No profile picture</p>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h3>{{ profile.fullname }}</h3>
+                <p>{{ profile.bio }}</p>
+                <h5 class="text-muted">{{ posts | length }} Posts</h5>
+                <div class="row">
+                    <a href="{% url 'update_profile' %}" class="btn btn-outline-primary ">Update Bio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# posts #}
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="wrapper">
+                {% for post in posts %}
+                        <div class="post">
+                            <img src="{{post.image.url}}" class="post-image">
+                            <div class="post-details px-2">
+                                <h4 class="post-like">{{ post.likes }} likes</h4>
+                                <div style="clear: both;"></div>
+                                <div class="text-center mt-2">
+                                    <a class="btn btn-primary mb-4" href="{% url 'post' post_id=post.id %}">Open Post</a>
+                                </div>
+                            </div>
+                        </div>
+                {% empty %}
+                    <p>No posts</p>
+                
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
 <h1>{{ user.username }}</h1>
 <h5>{{ user.email }}</h5>
 
