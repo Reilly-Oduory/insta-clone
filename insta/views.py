@@ -97,7 +97,8 @@ def view_profile(request):
 @login_required(login_url='/login/')
 def home(request):
     user = request.user
-    context = {"user":user}
+    posts = Post.objects.all()
+    context = {"user":user, "posts":posts}
     return render(request, 'home.html', context)
 
 # Posts
