@@ -1,0 +1,68 @@
+.profile-pic {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-position: center;
+}
+
+.circle {
+    background: #4d4d4d;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5vw;
+}
+
+.post {
+    background: #fcfcfc;
+}
+
+.post-image{
+    width: 100%;
+}
+
+.post-caption {
+    height: 10vh;
+}
+
+.post-caption p {
+    font-weight: 400;
+    color: rgb(65, 65, 65);
+    margin-bottom: .1em;
+}
+
+.post-like {
+    position: relative;
+    float: right;
+    font-size: .95rem;
+}
+
+.profile-form input:focus,
+.profile-form textarea:focus {
+    border: solid;
+    border-width: 2px;
+    outline: none;
+    border-color: #d6d6d6;
+    box-shadow: none;
+}
+
+.lister li {
+    list-style: none;
+}
+
+.identification {
+    margin-top: 1.5vh;
+    margin-bottom: 2vh;
+    font-family: 'Pacifico', cursive;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.identification-nav {
+    font-family: 'Pacifico', cursive;
+}

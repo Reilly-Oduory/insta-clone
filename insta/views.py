@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .forms import RegistrationForm, ProfileForm, UpdateProfileForm, NewPostForm, UpdateCaptionForm, CommentForm
-from .models import Comment, Post, Profile, User
+from .models import Comment, Post, Profile, Tag, User
 
 # Create your views here.
 def register_user(request):
@@ -86,7 +86,10 @@ def view_profile(request):
     user = request.user
     profile = Profile.objects.filter(user=user).first()
     posts = Post.objects.filter(user=user).all()
-    context = {"profile":profile, "posts":posts}
+    tags = []
+    for post in posts:
+        tags.append(post.tags)
+    context = {"profile":profile, "posts":posts, "tags":tags}
     return render(request, 'profile/view_profile.html', context)
 
 
@@ -115,6 +118,17 @@ def new_post(request):
 
     context = {"form":form}
     return render(request, 'post/new_post.html', context)
+
+def add_tag(request):
+    if request.method == 'POST':
+        if 'new_tag' in request.POST and request.POST["new_tag"]:
+                tag_name = request.POST.get("new_tag")
+                tag = Tag()
+                tag.tag = tag_name
+                tag.save_tag()
+    
+    return redirect(f'/new_post/')
+
 
 @login_required(login_url='/login/')
 def view_post(request, post_id):

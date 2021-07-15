@@ -14,9 +14,11 @@
     {% endblock %}
 </head>
 <body>
+    {% include 'navbar.html' %}
     {% block content %}
+        
         {% bootstrap_messages %}
-        {% include 'navbar.html' %}
+        
     
     {% endblock %}
 

@@ -24,7 +24,7 @@ urlpatterns = [
     path('post/<post_id>/', views.view_post, name='post'),
     path('post/<post_id>/like/', views.like, name='post_like'),
     path('post/<post_id>/update/', views.update_post_caption, name='post_caption_update'),
-
+    path('new/tag', views.add_tag, name='new_tag'),
     # comments
     path('post/<post_id>/comment/', views.new_comment, name='comment'),
 ]

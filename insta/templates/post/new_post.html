@@ -1,10 +1,49 @@
-<h1>New Post</h1>
+{% extends 'base.html' %}
 
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Post">
-</form>
-{% for message in messages  %}
-    <p>{{message}}</p>
-{% endfor %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 border px-4 py-4">
+        <div class="container">
+            <h1 class="identification">New Post</h1>
+            <form action="{% url 'new_post' %}" method="POST" enctype="multipart/form-data" class="profile-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <p class="text-danger">{{form.image.errors}}</p>
+                    <label>Post Picture</label>
+                    {{ form.image }}
+                </div>
+                <div class="form-group">
+                    <p class="text-danger">{{form.caption.errors}}</p>
+                    {{ form.caption }}
+                </div>
+                <div class="form-group">
+                    <p class="text-danger">{{form.location.errors}}</p>
+                    {{ form.location }}
+                </div>
+                <div class="form-group lister">
+                    <p class="text-danger">{{form.tags.errors}}</p>
+                    <label>Post Tags</label>
+                    <br>
+                    <small class="monospace text-muted">Incase of any new tags addthe tag first before any other post details</small>
+                    {{ form.tags }}
+                </div>
+                <div class="text-center mt-4">
+                <input type="submit" value="Post" class="btn btn-outline-success mb-4">
+                </div>
+            </form>
+            <hr>
+            <div class="text-center">
+                <form action="{% url 'new_tag' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="new_tag" placeholder="Add new tag" class="form-group">
+                    <input type="submit" value="Add Tag" class="btn btn-outline-info">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+{% endblock %}

@@ -13,7 +13,6 @@ class RegistrationForm(UserCreationForm):
     email = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Enter Email"}))
     password1 = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Enter Password"}))
     password2 = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Confirm Password"}))
-
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
@@ -21,12 +20,14 @@ class ProfileForm(ModelForm):
 
     fullname = forms.CharField(widget=(forms.TextInput(attrs={'class': "form-control", 'placeholder': "Enter your Fullname"})))
     profile_pic = forms.ImageField.widget.attrs={'class': "form-control"}
-    bio =forms.CharField(widget=(forms.Textarea(attrs={'class': "form-control", 'placeholder': "Tell us more about your self", 'cols': "25"})))
+    bio = forms.CharField(widget=(forms.Textarea(attrs={'class': "form-control", 'placeholder': "Tell us more about your self", 'cols': "25"})))
 
 class UpdateProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['bio']
+    
+    bio = forms.CharField(widget=(forms.Textarea(attrs={'class': "form-control", 'placeholder': "Tell us more about your self", 'cols': "25"})))
 
 class TagForm(ModelForm):
     class Meta:
@@ -39,6 +40,9 @@ class NewPostForm(ModelForm):
         model = Post
         fields = ['image', 'caption', 'location', 'tags']
 
+    image = forms.ImageField.widget.attrs={'class': "form-control"}
+    caption = forms.CharField(widget=(forms.Textarea(attrs={'class': "form-control", 'placeholder': "Tell us more about the picture", 'cols': "25"})))
+    location = forms.CharField(widget=(forms.TextInput(attrs={'class': "form-control", 'placeholder': "Enter locations"})))
     tags = forms.ModelMultipleChoiceField(
         queryset = Tag.objects.all(),
         widget = forms.CheckboxSelectMultiple
@@ -48,6 +52,8 @@ class UpdateCaptionForm(ModelForm):
     class Meta:
         model = Post
         fields = ['caption']
+
+    caption = forms.CharField(widget=(forms.Textarea(attrs={'class': "form-control", 'placeholder': "Tell the story behind the picture", 'cols': "25"})))
 
 class CommentForm(ModelForm):
     class Meta:

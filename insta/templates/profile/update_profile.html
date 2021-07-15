@@ -1,15 +1,23 @@
-<h1>{{ username }}</h1>
-<h1>Update Profile</h1>
+{% extends 'base.html' %}
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Submit">
-</form>
-{% if messages %}
-
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-  
-{% endif %}
+{% block content %}
+    <h3 class="identification pt-4">Update {{ username }}'s bio</h3>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 px-4 py-4">
+            <div class="container">
+                <form method="POST">
+                    {% csrf_token %}
+                        <div class="form-group">
+                            <p class="text-danger">{{form.bio.errors}}</p>
+                            {{ form.bio }}
+                        </div>
+                        <div class="text-center mt-4">
+                        <input type="submit" value="Update" class="btn btn-outline-primary ">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}
